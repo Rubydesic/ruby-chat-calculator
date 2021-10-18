@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "rubychatcalculator",
+  "version": "${version}",
+  "name": "Ruby's Chat Calculator",
+  "description": "This is an example description! Tell everyone what your mod is about!",
+  "authors": [
+    "rubydesic"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+  "license": "Insert License Here",
+  "icon": "assets/examplemod/icon.png",
+  "mixins": ["rubychatcalculator.mixins.json"],
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.rubydesic.chatcalc.fabric.ChatCalcModFabric"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "minecraft": ">=1.16.4"
+  }
+}
