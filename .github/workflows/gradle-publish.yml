@@ -25,10 +25,30 @@ jobs:
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }} # location for the settings.xml file
 
-    - name: Build with Gradle
-      run: |
-        chmod +x ./gradlew
-        ./gradlew build
+    - uses: burrunan/gradle-cache-action@v1
+      name: Build PROJECT_NAME
+      # Extra environment variables for Gradle execution (regular GitHub Actions feature)
+      # Note: env must be outside of "with"
+      env:
+        VARIABLE: VALUE
+      with:
+        # If you have multiple jobs, use distinct job-id in in case you want to split caches
+        # For instance, jobs with different JDK versions can't share caches
+        # RUNNER_OS is added to job-id automatically
+        job-id: jdk16
+        # Specifies arguments for Gradle execution
+        # If arguments is missing or empty, then Gradle is not executed
+        arguments: build
+        # arguments can be multi-line for better readability
+        # arguments: |
+        #  --no-paralell
+        #  build
+        #  -x test
+        # Gradle version to use for execution:
+        #   wrapper (default), current, rc, nightly, release-nightly, or
+        #   versions like 6.6 (see https://services.gradle.org/versions/all)
+        gradle-version: wrapper
+        # Properties are passed as -Pname=value
 
     - name: Upload binaries to release
       uses: svenstaro/upload-release-action@v2
